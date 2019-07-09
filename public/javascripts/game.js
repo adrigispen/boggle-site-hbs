@@ -105,15 +105,23 @@ class Game {
     let playerId = this.getCurrentPlayer().id;
     let userId = this.getCurrentPlayer().userId;
     console.log(newWords, seconds, playerId, userId);
-    axios.put("http://127.0.0.1:3000/games/" + this.id, {
-      playerId,
-      seconds,
-      newWords,
-      userId
-    });
+    axios
+      .post("http://127.0.0.1:3000/save-game/" + this.id, {
+        playerId,
+        seconds,
+        newWords,
+        userId
+      })
+      .then(response => {
+        console.log("heyhey");
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   changePlayer() {
+    this.saveToDB();
     for (var i = 0; i < this.players.length; i++) {
       if (this.players[i].playingNow) {
         let newIndex = (i + 1) % this.players.length;

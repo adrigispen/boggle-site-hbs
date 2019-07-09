@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const Board = require("../models/Board");
+const OpenGame = require("../models/OpenGame");
 const hbs = require("hbs");
 const Util = require("../util/game-util");
 
@@ -72,5 +73,40 @@ router.get("/game/:id", (req, res) => {
 });
 
 router.get("/games/user/:id", (req, res) => {});
+
+router.post("/save-game/:id", (req, res, next) => {
+  console.log("here, getting the game :", req.body);
+  OpenGame.findOneAndUpdate(
+    { _id: req.params.id, "players._id": req.body.playerId },
+    {
+      $set: {
+        "players.$.words": req.body.newWords,
+        "players.$.seconds": req.body.seconds
+      }
+    }
+  )
+    .then(game => {
+      console.log("successfully updated");
+      res.status(200).json({ game });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
+  // findById(req.params.id)
+  //   .then(game => {
+  //     game.players.forEach(player => {
+
+  //     })
+  //     console.log(game);
+  //   })
+  //   .catch(err => {
+  //     console.log(err);
+  //   });
+});
+
+router.get("/save-game/:id", (req, res) => {
+  console.log("here, getting the game :", req, res);
+});
 
 module.exports = router;

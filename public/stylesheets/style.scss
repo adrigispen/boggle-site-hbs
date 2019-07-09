@@ -1,0 +1,281 @@
+body {
+  font-family: "Avenir Next";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heading {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#find-all {
+  height: 40px;
+  width: 250px;
+  font-size: 1.2em;
+  font-weight: 600;
+  border-radius: 5px;
+  background-color: darkblue;
+  color: white;
+  display: none;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 1000px;
+}
+
+#game {
+  width: 100%;
+}
+
+.player-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0 0 20px 0;
+}
+
+.entry-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.find {
+  width: 60%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.find #word-entry {
+  width: 90%;
+  height: 40px;
+  font-size: 1.5em;
+}
+
+.find #enter-button {
+  width: 10%;
+  height: 45px;
+  font-size: 1.3em;
+  border-radius: 0 5px 5px 0;
+}
+
+#error {
+  color: red;
+  width: 100%;
+}
+
+.board-list-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.right-panel {
+  height: 600px;
+  padding: 0 0 0 20px;
+  width: 100%;
+  overflow-y: scroll;
+}
+
+.right-panel h3 {
+  display: inline-block;
+}
+
+.score-time-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.score-time-wrapper div {
+  margin: 5px 15px 0 0;
+}
+
+.player-display {
+  margin-left: 10px;
+}
+
+div span {
+  font-size: 1.5em;
+  font-weight: 700;
+  width: 50%;
+}
+
+#waiting {
+  display: none;
+}
+
+/* SETTINGS */
+
+#settings {
+  width: 800px;
+  justify-content: center;
+  align-items: center;
+}
+
+.settings {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.settings h3 {
+  width: 300px;
+}
+
+#settings h2 button {
+  width: 200px;
+  height: 40px;
+  font-size: 0.8em;
+  font-weight: 700;
+  border-radius: 5px;
+  background-color: darkblue;
+  color: white;
+  float: right;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: baseline;
+  width: 100%;
+  margin: 10px 0;
+}
+
+.right-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.right-col input {
+  margin-right: 10px;
+}
+
+.info {
+  font-size: 0.8em;
+  font-weight: 200;
+  margin: 3px 0 10px 25px;
+  width: 90%;
+}
+
+.player-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.player-row label {
+  width: 120px;
+}
+
+.player-row .new-player-input {
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.player-row input {
+  padding: 0 5px;
+  height: 25px;
+  margin: 3px 0;
+  font-size: 0.8em;
+  width: 90%;
+}
+
+.player-row input:first-child {
+  width: 100%;
+}
+
+.right-col button {
+  width: 130px;
+  height: 25px;
+  font-size: 0.8em;
+  margin-top: 10px;
+}
+
+#highlighted-list {
+  display: none;
+}
+
+.right-col .remove {
+  width: 35px;
+  height: 30px;
+  font-size: 0.7em;
+  border-radius: 0 5px 5px 0;
+  margin: 1px 0;
+}
+
+.modal {
+  background-color: white;
+  width: 50vw;
+  height: 80vh;
+  position: fixed;
+  top: 10%;
+  left: 25%;
+  text-align: center;
+  border: 1px solid grey;
+  padding: 0 30px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.tab {
+  border: 1px solid grey;
+  width: 100px;
+  height: 30px;
+}
+
+.selected-tab {
+  background-color: lightgrey;
+}
+
+#signup-div,
+#guest-div {
+  display: none;
+  visibility: hidden;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.col-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+

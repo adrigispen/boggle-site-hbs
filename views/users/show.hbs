@@ -1,0 +1,13 @@
+{{!-- Player's homepage, where he goes after logging in --}}
+<div class="col-container">
+  <h2>Here I am on the primary profile, after logging in {{ user.username }}</h2>
+  <a href="/start-game">New Game</a>
+  <p>Other profiles:</p>
+  {{#if users }}
+  <div class="card-container">
+    {{#each users }}
+    {{>userPartial }}
+    {{/each }}
+  </div>
+  {{/if }}
+</div>

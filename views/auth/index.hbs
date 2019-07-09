@@ -1,0 +1,81 @@
+<div class="modal" onload="setView()">
+  <h1>Welcome!</h1>
+  <h4>To start playing, please login, signup, or continue as a guest.</h4>
+  <div class="buttons">
+    <button class="tab selected-tab" id="login-btn">Login</button><button class="tab" id="signup-btn">Sign
+      up</button><button class="tab" id="guest-btn">Guest</button>
+  </div>
+  <div id="login-div">
+    {{> login }}
+  </div>
+  <div id="signup-div">
+    {{> signup }}
+  </div>
+  <div id="guest-div">
+    {{> guest }}
+  </div>
+  <a href="/auth/facebook">Login via facebook</a>
+</div>
+
+<script>
+  let lb = document.getElementById('login-btn');
+  let sb = document.getElementById('signup-btn');
+  let gb = document.getElementById('guest-btn');
+  let ld = document.getElementById('login-div');
+  let sd = document.getElementById('signup-div');
+  let gd = document.getElementById('guest-div');
+  let em = [...document.getElementsByClassName('error-message')];
+
+  function setView() {
+    if ({{ view }} == "signup") {
+      sb.classList.add("selected-tab");
+      lb.classList.remove("selected-tab");
+      gb.classList.remove("selected-tab");
+      sd.style.display = "inline-block";
+      sd.style.visibility = "visible";
+      ld.style.display = "none";
+      gd.style.display = "none";
+    }
+    if ({{ view }} == "login") {
+      lb.classList.add("selected-tab");
+      sb.classList.remove("selected-tab");
+      gb.classList.remove("selected-tab");
+      ld.style.display = "inline-block";
+      ld.style.visibility = "visible";
+      sd.style.display = "none";
+      gd.style.display = "none";
+    }
+  }
+
+  lb.onclick = () => {
+    lb.classList.add("selected-tab");
+    sb.classList.remove("selected-tab");
+    gb.classList.remove("selected-tab");
+    ld.style.display = "inline-block";
+    ld.style.visibility = "visible";
+    sd.style.display = "none";
+    gd.style.display = "none";
+    em.forEach(el => el.innerHTML = "");
+
+  }
+  sb.onclick = () => {
+    sb.classList.add("selected-tab");
+    lb.classList.remove("selected-tab");
+    gb.classList.remove("selected-tab");
+    sd.style.display = "inline-block";
+    sd.style.visibility = "visible";
+    ld.style.display = "none";
+    gd.style.display = "none";
+    em.forEach(el => el.innerHTML = "");
+  }
+  gb.onclick = () => {
+    gb.classList.add("selected-tab");
+    sb.classList.remove("selected-tab");
+    lb.classList.remove("selected-tab");
+    gd.style.display = "inline-block";
+    gd.style.visibility = "visible";
+    sd.style.display = "none";
+    ld.style.display = "none";
+    em.forEach(el => el.innerHTML = "");
+  }
+</script>

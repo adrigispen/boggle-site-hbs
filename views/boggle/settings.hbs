@@ -1,0 +1,91 @@
+<div id="settings">
+  <h2>Settings</h2>
+  <hr>
+  <form class="settings" action="/game" method='POST'>
+    <div class="row">
+      <h3>Players</h3>
+      <div id="players-list" class="right-col">
+        <div class="player-row">
+          <label>Player Name</label>
+          <div class="new-player-input">
+            <input class="player" type="text" name="currentUser" placeholder="Player 1" {{#if user}}
+              value="{{ user.username }}" {{/if}}>
+          </div>
+        </div>
+        <div class="player-row">
+          <label>Player Name</label>
+          <div class="new-player-input">
+            {{#if users }}
+            <select name="user2">
+              {{#each users}}
+              <option value="{{ _id }}">{{ username }}</option>
+              {{/each }}
+            </select>
+            {{ else }}
+            <input class="player" type="text" name="otherPlayer" placeholder="Player 2">
+            <button class="remove" type="button" onclick="removePlayerInput(event)">&#x1F5D1;</button>
+            {{/if }}
+          </div>
+        </div>
+        <button type="button" id="add-player" onclick="addPlayerInput()">Add Another...</button>
+      </div>
+    </div>
+    <div class="row">
+      <h3>Board size</h3>
+      <div class="right-col">
+        <select name="dimension">
+          <option value="3">3x3</option>
+          <option value="4">4x4</option>
+          <option value="5" selected>5x5</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <h3>Game play</h3>
+      <div class="right-col">
+        <label><input type="checkbox" name="generous" checked="true">Generous</label>
+        <span class="info">Letters may be used more than once (no direct repetition of a single letter)</span>
+        <label><input type="checkbox" name="speed" checked="true">Speed mode</label>
+        <span class="info">Players take turns finding words as quickly as possible, with no repetition. NOTE: If speed
+          is not selected, each player takes an individual turn to find as many words as possible. Words found by more
+          than one player are not counted towards the final score.</span>
+      </div>
+    </div>
+    <button type="submit" id="new-game">Start Game!</button>
+  </form>
+</div>
+
+<script>
+
+  function addPlayerInput() {
+    let playersList = document.getElementById("players-list");
+    let index = [...document.getElementsByClassName("player-row")].length;
+    let button = document.getElementById("add-player");
+    let row = document.createElement("div");
+    let label = document.createElement("label");
+    label.innerHTML = "Player Name";
+    let inputButtonWrapper = document.createElement("div");
+    inputButtonWrapper.classList.add("new-player-input");
+    let input = document.createElement("input");
+    input.type = "text";
+    input.placeholder = "Player " + Number(index + 1);
+    input.name = "players[" + index + "][name]";
+    input.classList.add("player");
+    let remove = document.createElement("button");
+    remove.classList.add("remove");
+    remove.type = "button";
+    remove.innerHTML = "&#x1F5D1;";
+    remove.onclick = this.removePlayerInput;
+    inputButtonWrapper.appendChild(input);
+    inputButtonWrapper.appendChild(remove);
+    row.appendChild(label);
+    row.appendChild(inputButtonWrapper);
+    row.classList.add("player-row");
+    playersList.insertBefore(row, button);
+  }
+
+  function removePlayerInput(e) {
+    document.getElementById("players-list").removeChild(e.currentTarget.parentNode.parentNode);
+  }
+
+</script>

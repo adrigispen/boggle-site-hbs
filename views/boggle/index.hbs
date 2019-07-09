@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="heading">
+    <h1>Speedy Boggle</h1>
+  </div>
+  <!-- Main game! -->
+  <div id="game">
+    <div class="player-input">
+      <div class="entry-row">
+        <div class="find">
+          <input type="text" id="word-entry">
+          <button type="button" id="enter-button">&#x1F50D;</button>
+        </div>
+        <button type="button" id="find-all">End and view solutions<span id="waiting">⌛</span></button>
+      </div>
+      <div id="error"></div>
+    </div>
+    <div class="board-list-row">
+      <div id="canvas">
+      </div>
+      <div class="right-panel" id="player-display-list">
+      </div>
+      <div class="right-panel" id="highlighted-list"></div>
+    </div>
+  </div>
+</div>
+{{!-- let board = {
+    generous: {{{ json board.generous }}},
+    shortTurns: {{{ json board.shortTurns }}},
+    letterMatrix: {{{ json board.letterMatrix }}},
+    id: {{{ json board._id }}}
+  }; --}}
+<script>
+  let board = {{{ json board }}};
+  let players = {{{ json players }}};
+  let id = {{{ json id }}}
+  console.log(board, players);
+
+  let game = new Game(board, players, id);
+  game.setup();
+  game.players[0].setCurrentPlayer();
+
+  function setup() {
+    let canvas = createCanvas(WIDTH, HEIGHT);
+    canvas.parent("canvas");
+  }
+
+  function draw() {
+    if (game) game.draw();
+  }
+
+  function keyPressed() {
+    game.keyPressed();
+  }
+
+
+  let findEndButton = document.getElementById("find-all");
+  findEndButton.style.display = "inline-block";
+  findEndButton.onclick = (() => game.findAllWords()).bind(game)
+  document.getElementById("enter-button").onclick = game.checkForWord.bind(game)
+
+</script>
+
+</body>
+
+</html>

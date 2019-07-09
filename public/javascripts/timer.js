@@ -1,6 +1,6 @@
 class Timer {
-  constructor() {
-    this.currentTime = 0;
+  constructor(seconds = 0) {
+    this.currentTime = seconds;
   }
 
   draw(name) {

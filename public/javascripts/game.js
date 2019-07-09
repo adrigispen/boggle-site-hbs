@@ -23,7 +23,14 @@ class Game {
 
   setup() {
     this.board.setup();
-    this.players.forEach(player => player.addToBoard(player.name));
+    this.players.forEach(player => {
+      player.addToBoard(player.name);
+      let wordsDiv = document.getElementById(player.name + "-player-list");
+      //let scoreDiv = document.getElementById(player.name + "-score");
+      player.words.forEach(word => {
+        wordsDiv.innerHTML += `<li>${word}</li>`;
+      });
+    });
   }
 
   draw() {
@@ -113,7 +120,7 @@ class Game {
         userId
       })
       .then(response => {
-        console.log("heyhey");
+        //eh, here we are
       })
       .catch(err => {
         console.log(err);

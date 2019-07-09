@@ -1,5 +1,6 @@
 const express = require("express");
 const User = require("../models/User");
+const OpenGame = require("../models/OpenGame");
 const router = express.Router();
 
 router.get("/:id", (req, res, next) => {
@@ -15,9 +16,16 @@ router.get("/:id", (req, res, next) => {
 
 router.get("/", (req, res, next) => {
   let user = req.user;
-  User.find({})
-    .then(users => {
-      res.render("users/show", { user, users });
+  OpenGame.find({ "players.displayName": req.user.username })
+    .then(games => {
+      console.log(games);
+      User.find({})
+        .then(users => {
+          res.render("users/show", { user, users, games });
+        })
+        .catch(err => {
+          console.log(err);
+        });
     })
     .catch(err => {
       console.log(err);

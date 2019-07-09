@@ -68,7 +68,7 @@ class Player {
     let doneButton = document.createElement("button");
     doneButton.id = this.name + "-turn-done";
     doneButton.innerHTML = "End turn";
-    doneButton.onclick = () => game.saveToDB();
+    doneButton.onclick = () => game.changePlayer();
     doneButton.disabled = true;
     // let link = document.createElement("a");
     // link.href = `/game/${game.id}`;

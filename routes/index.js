@@ -69,7 +69,24 @@ router.post("/game/:id", (req, res) => {
 });
 
 router.get("/game/:id", (req, res) => {
-  console.log(req);
+  console.log("here I am, looking for a game");
+  OpenGame.findById(req.params.id)
+    .then(game => {
+      console.log(game);
+      Board.findById(game.board)
+        .then(board => {
+          console.log(board);
+          let players = game.players;
+          let id = game._id;
+          res.render("boggle", { board, players, id });
+        })
+        .catch(err => {
+          console.log("error loading board ", err);
+        });
+    })
+    .catch(err => {
+      console.log(err);
+    });
 });
 
 router.get("/games/user/:id", (req, res) => {});
@@ -92,17 +109,6 @@ router.post("/save-game/:id", (req, res, next) => {
     .catch(err => {
       console.log(err);
     });
-
-  // findById(req.params.id)
-  //   .then(game => {
-  //     game.players.forEach(player => {
-
-  //     })
-  //     console.log(game);
-  //   })
-  //   .catch(err => {
-  //     console.log(err);
-  //   });
 });
 
 router.get("/save-game/:id", (req, res) => {

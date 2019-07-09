@@ -33,7 +33,7 @@
   let board = {{{ json board }}};
   let players = {{{ json players }}};
   let id = {{{ json id }}}
-  console.log(board, players);
+  console.log(board, "here's the players passed to the frontend!! Check for their words ", players);
 
   let game = new Game(board, players, id);
   game.setup();

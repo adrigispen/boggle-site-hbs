@@ -51,6 +51,54 @@ function newGame(boardSize, users, generous, shortTurns) {
     });
 }
 
+function getProfileData(user) {
+  return User.findById(user._id)
+    .then(user => {
+      return OpenGame.find({ "players.displayName": user.username })
+        .then(games => {
+          console.log(games);
+          let wonCount = games.filter(
+            game =>
+              game.winner != null &&
+              game.winner.toString() == user._id.toString()
+          ).length;
+          let open = games.filter(game => game.winner == null);
+          let totalClosed = games.filter(game => game.winner != null).length;
+          return { wonCount, totalClosed, open };
+        })
+        .catch(err => {
+          console.log("error getting games for user profile: ", err);
+        });
+    })
+    .catch(err => {
+      console.log("error finding user by id (for profile): ", err);
+    });
+}
+
+function getStats() {
+  return User.find({})
+    .then(users => {
+      return users.map(user => {
+        return OpenGame.find({ "players.displayName": user.username })
+          .then(games => {
+            let wonCount = games.filter(
+              game =>
+                game.winner != null &&
+                game.winner.toString() == user._id.toString()
+            ).length;
+            let totalClosed = games.filter(game => game.winner != null).length;
+            return { user, wonCount, totalClosed };
+          })
+          .catch(err => {
+            console.log("error getting games for user profile: ", err);
+          });
+      });
+    })
+    .catch(err => {
+      console.log("error finding users, ", err);
+    });
+}
+
 const en_US = [
   "a",
   "a",
@@ -183,4 +231,4 @@ function getRandomColor() {
   return color;
 }
 
-module.exports = { newBoard, newGame };
+module.exports = { newBoard, newGame, getProfileData, getStats };

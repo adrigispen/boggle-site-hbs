@@ -1,7 +1,10 @@
 <div class="card">
   <a href="/game/{{_id}}">
-    <h2>{{ _id }}</h2>
+    <h4>View Game</h4>
   </a>
-  <h3>{{ players.[0] }}</h3>
-  <h3>{{ players.[1] }}</h3>
+  <h3>{{ players.[0].displayName }}</h3>
+  <p>{{players.[0].points}} points, {{players.[0].seconds}} seconds</p>
+  <br>
+  <h3>{{ players.[1].displayName }}</h3>
+  <p>{{players.[1].points}} points, {{players.[1].seconds}} seconds</p>
 </div>

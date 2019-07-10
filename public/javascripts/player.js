@@ -14,6 +14,7 @@ class Player {
 
   setCurrentPlayer() {
     this.playingNow = true;
+    game.setPlayerDB();
     document.getElementById(this.name + "-name").style.color = this.color;
     document.getElementById(this.name + "-timer").style.color = this.color;
     document.getElementById(this.name + "-player-list").style.display =

@@ -1,17 +1,26 @@
 {{!-- Player's homepage, where he goes after logging in --}}
 <div class="col-container">
-  <h2>Here I am on the primary profile, after logging in {{ user.username }}</h2>
-  <a href="/start-game">New Game</a>
+  <div class="profile-header">
+    <h1>{{ user.username }}</h1>
+    <div class="win-count-container">
+      <h1>{{ data.wonCount }}/{{ data.totalClosed }}</h1>
+    </div>
+  </div>
+
   <p>Open games:</p>
   <div class="card-container">
-    {{#each games }}
+    {{#unless data.open }}
+    <h3>No open games!</h3>
+    {{/unless }}
+    {{#each data.open }}
     {{>openGamePartial }}
     {{/each }}
   </div>
-  <p>Other profiles:</p>
-  {{#if users }}
+  <a href="/start-game">Start New Game</a>
+  <h2>Leaderboard</h2>
+  {{#if usersData }}
   <div class="card-container">
-    {{#each users }}
+    {{#each usersData }}
     {{>userPartial }}
     {{/each }}
   </div>

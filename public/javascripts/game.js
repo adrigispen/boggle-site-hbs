@@ -116,6 +116,22 @@ class Game {
       });
   }
 
+  setPlayerDB() {
+    let playerId = this.getCurrentPlayer().id;
+    let userId = this.getCurrentPlayer().userId;
+    axios
+      .post("http://127.0.0.1:3000/set-player/" + this.id, {
+        playerId,
+        userId
+      })
+      .then(response => {
+        console.log("set current player");
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   endGameDB() {
     let winner = this.getWinner();
     axios
@@ -157,6 +173,7 @@ class Game {
         document.getElementById("error").innerHTML = "";
         if (this.players[newIndex].turnOver == true) this.findAllWords();
         this.players[newIndex].playingNow = true;
+        this.setPlayerDB();
         document.getElementById(
           this.players[newIndex].name + "-name"
         ).style.color = this.players[newIndex].color;

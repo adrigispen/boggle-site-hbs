@@ -93,12 +93,31 @@ router.post("/save-game/:id", (req, res, next) => {
       $set: {
         "players.$.words": req.body.newWords,
         "players.$.seconds": req.body.seconds,
-        "players.$.points": req.body.points
+        "players.$.points": req.body.points,
+        "players.$.currentPlayer": false
       }
     }
   )
     .then(game => {
       console.log("successfully updated");
+      res.status(200).json({ game });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
+
+router.post("/set-player/:id", (req, res) => {
+  OpenGame.findOneAndUpdate(
+    { _id: req.params.id, "players._id": req.body.playerId },
+    {
+      $set: {
+        "players.$.currentPlayer": true
+      }
+    }
+  )
+    .then(game => {
+      console.log("successfully set the current player");
       res.status(200).json({ game });
     })
     .catch(err => {

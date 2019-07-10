@@ -1,5 +1,3 @@
-
-
 function setup() {
   let canvas = createCanvas(WIDTH, HEIGHT);
   canvas.parent("canvas");
@@ -16,14 +14,13 @@ function keyPressed() {
 function newGame() {
   game = new Game(boardSize, players, generous, speed, language);
   game.setup();
-  game.players[0].setCurrentPlayer();
-  
+  console.log(game.getCurrentPlayer());
+  if (!game.getCurrentPlayer()) game.players[0].setCurrentPlayer();
+
   let findEndButton = document.getElementById("find-all");
   findEndButton.style.display = "inline-block";
-  findEndButton.onclick = (() => game.findAllWords(language)).bind(game)
-  document.getElementById("enter-button").onclick = game.checkForWord.bind(game)
-  
+  findEndButton.onclick = (() => game.findAllWords(language)).bind(game);
+  document.getElementById("enter-button").onclick = game.checkForWord.bind(
+    game
+  );
 }
-
-
-

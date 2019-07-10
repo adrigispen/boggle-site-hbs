@@ -1,17 +1,4 @@
 class Game {
-  // constructor(boardSize, playerNames, generous, speed = true) {
-  //   this.board = new Board(boardSize);
-  //   this.players = [];
-  //   this.generous = generous;
-  //   this.speed = speed;
-  //   this.isOver = false;
-  //   playerNames.forEach((name, index) => {
-  //     let pn = name == "" ? "Player " + Number(index + 1) : name;
-  //     let newPlayer = new Player(pn);
-  //     this.players.push(newPlayer);
-  //   });
-  // }
-
   constructor(board, players, id) {
     this.id = id;
     this.board = new Board(board);
@@ -26,10 +13,11 @@ class Game {
     this.players.forEach(player => {
       player.addToBoard(player.name);
       let wordsDiv = document.getElementById(player.name + "-player-list");
-      //let scoreDiv = document.getElementById(player.name + "-score");
+      let scoreDiv = document.getElementById(player.name + "-score");
       player.words.forEach(word => {
         wordsDiv.innerHTML += `<li>${word}</li>`;
       });
+      scoreDiv.innerHTML = `pts: ${player.score}`;
     });
   }
 
@@ -109,18 +97,31 @@ class Game {
   saveToDB() {
     let newWords = this.getCurrentPlayer().words;
     let seconds = this.getCurrentPlayer().timer.currentTime;
+    let points = this.getCurrentPlayer().score;
     let playerId = this.getCurrentPlayer().id;
     let userId = this.getCurrentPlayer().userId;
-    console.log(newWords, seconds, playerId, userId);
     axios
       .post("http://127.0.0.1:3000/save-game/" + this.id, {
         playerId,
         seconds,
         newWords,
-        userId
+        userId,
+        points
       })
       .then(response => {
         //eh, here we are
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  endGameDB() {
+    let winner = this.getWinner();
+    axios
+      .post("http://127.0.0.1:3000/end-game/" + this.id, { winner })
+      .then(response => {
+        console.log("saved winner ended the game");
       })
       .catch(err => {
         console.log(err);
@@ -184,6 +185,7 @@ class Game {
     if (!this.speed) this.calibrateScores();
     setTimeout(() => this.board.findAllWords(), 100);
     this.isOver = true;
+    this.endGameDB();
   }
 
   endGame() {

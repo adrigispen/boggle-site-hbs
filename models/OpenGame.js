@@ -10,11 +10,12 @@ const gameSchema = new Schema({
       words: [String],
       seconds: Number,
       color: String,
-      currentPlayer: Boolean
+      currentPlayer: Boolean,
+      finalScore: Number
     }
   ],
-  board: { type: Schema.Types.ObjectId, required: true, ref: "Board" }
-  // maybe need a state to store current player & winner, is finished, etc.
+  board: { type: Schema.Types.ObjectId, required: true, ref: "Board" },
+  winner: { type: Schema.Types.ObjectId, ref: "User" }
 });
 
 const OpenGame = mongoose.model("OpenGame", gameSchema);

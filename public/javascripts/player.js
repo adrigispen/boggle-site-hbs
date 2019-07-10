@@ -1,13 +1,4 @@
 class Player {
-  // constructor(name) {
-  //   this.name = name;
-  //   this.timer = new Timer();
-  //   this.words = [];
-  //   this.score = 0;
-  //   this.color = getRandomColor();
-  //   this.playingNow = false;
-  //   this.turnOver = false;
-  // }
 
   constructor(player) {
     this.name = player.displayName;
@@ -70,9 +61,6 @@ class Player {
     doneButton.innerHTML = "End turn";
     doneButton.onclick = () => game.changePlayer();
     doneButton.disabled = true;
-    // let link = document.createElement("a");
-    // link.href = `/game/${game.id}`;
-    // link.innerHTML = "Save game";
     let hr = document.createElement("hr");
 
     orderedList.appendChild(listItems);
@@ -80,7 +68,6 @@ class Player {
     wrapper.appendChild(scoreTimeWrapper);
     wrapper.appendChild(orderedList);
     if (!game.speed) wrapper.appendChild(doneButton);
-    // wrapper.appendChild(link);
     wrapper.appendChild(hr);
 
     parent.appendChild(wrapper);

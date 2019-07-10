@@ -16,7 +16,9 @@ router.get("/:id", (req, res, next) => {
 
 router.get("/", (req, res, next) => {
   let user = req.user;
-  OpenGame.find({ "players.displayName": req.user.username })
+  OpenGame.find({
+    $and: [{ "players.displayName": req.user.username }, { winner: null }]
+  })
     .then(games => {
       console.log(games);
       User.find({})

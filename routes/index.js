@@ -69,13 +69,10 @@ router.post("/game/:id", (req, res) => {
 });
 
 router.get("/game/:id", (req, res) => {
-  console.log("here I am, looking for a game");
   OpenGame.findById(req.params.id)
     .then(game => {
-      console.log(game);
       Board.findById(game.board)
         .then(board => {
-          console.log(board);
           let players = game.players;
           let id = game._id;
           res.render("boggle", { board, players, id });
@@ -89,16 +86,14 @@ router.get("/game/:id", (req, res) => {
     });
 });
 
-router.get("/games/user/:id", (req, res) => {});
-
 router.post("/save-game/:id", (req, res, next) => {
-  console.log("here, getting the game :", req.body);
   OpenGame.findOneAndUpdate(
     { _id: req.params.id, "players._id": req.body.playerId },
     {
       $set: {
         "players.$.words": req.body.newWords,
-        "players.$.seconds": req.body.seconds
+        "players.$.seconds": req.body.seconds,
+        "players.$.points": req.body.points
       }
     }
   )
@@ -111,8 +106,24 @@ router.post("/save-game/:id", (req, res, next) => {
     });
 });
 
-router.get("/save-game/:id", (req, res) => {
-  console.log("here, getting the game :", req, res);
+router.post("/end-game/:id", (req, res, next) => {
+  let winner = req.body.winner;
+  User.findOne({ username: winner.name }).then(winner => {
+    OpenGame.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        winner: winner._id
+      }
+    )
+      .then(game => {
+        console.log("successfully stored winner");
+        console.log(game);
+        res.status(200).json({ game });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  });
 });
 
 module.exports = router;

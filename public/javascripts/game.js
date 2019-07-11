@@ -102,8 +102,9 @@ class Game {
     let points = this.getCurrentPlayer().score;
     let playerId = this.getCurrentPlayer().id;
     let userId = this.getCurrentPlayer().userId;
+    let host = window.location.protocol + "//" + window.location.host;
     axios
-      .post(`${process.env.HOST_NAME}/save-game/` + this.id, {
+      .post(host + "/save-game/" + this.id, {
         playerId,
         seconds,
         newWords,
@@ -121,8 +122,9 @@ class Game {
   setPlayerDB() {
     let playerId = this.getCurrentPlayer().id;
     let userId = this.getCurrentPlayer().userId;
+    let host = window.location.protocol + "//" + window.location.host;
     axios
-      .post(`${process.env.HOST_NAME}/set-player/` + this.id, {
+      .post(host + "/set-player/" + this.id, {
         playerId,
         userId
       })
@@ -135,8 +137,9 @@ class Game {
   }
 
   setPlayerById(playerId, userId) {
+    let host = window.location.protocol + "//" + window.location.host;
     axios
-      .post(`${process.env.HOST_NAME}/set-player/${this.id}`, {
+      .post(host + "/set-player/" + this.id, {
         playerId,
         userId
       })
@@ -151,8 +154,9 @@ class Game {
 
   endGameDB() {
     let winner = this.getWinner();
+    let host = window.location.protocol + "//" + window.location.host;
     axios
-      .post(`${process.env.HOST_NAME}/end-game/` + this.id, { winner })
+      .post(host + "/end-game/" + this.id, { winner })
       .then(response => {
         console.log("saved winner ended the game");
       })

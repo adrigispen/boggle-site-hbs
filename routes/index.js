@@ -7,9 +7,12 @@ const hbs = require("hbs");
 const Util = require("../util/game-util");
 
 hbs.registerHelper("json", data => JSON.stringify(data));
-hbs.registerHelper("parse", data => JSON.parse(data));
+//hbs.registerHelper("parse", data => JSON.parse(data));
 
-/* GET home page */
+router.get("/", (req, res, next) => {
+  res.redirect("/auth");
+});
+
 router.get("/start-game", (req, res, next) => {
   let user = req.user;
   User.find({})

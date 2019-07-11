@@ -16,7 +16,7 @@
   var cp = {{{ json currentPlayer }}}
   document.getElementById("remind-{{_id}}").onclick = () => {
     axios
-      .post(`${process.env.HOST_NAME}/users/send-email/` + {{{ json _id }}}, { cp })
+      .post(window.location.protocol + '//' + window.location.host + "/users/send-email/" + {{{ json _id }}}, { cp })
       .then(response => {
         console.log("trying to send an email");
       })

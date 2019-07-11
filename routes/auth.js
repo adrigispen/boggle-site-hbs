@@ -32,9 +32,10 @@ router.get("/signup", (req, res, next) => {
 router.post("/signup", (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
-  if (username === "" || password === "") {
+  const email = req.body.email;
+  if (username === "" || password === "" || email === "") {
     res.render("auth", {
-      message: "Indicate username and password",
+      message: "Please enter your username, password, and email.",
       view: "signup"
     });
     return;
@@ -54,13 +55,18 @@ router.post("/signup", (req, res, next) => {
 
     const newUser = new User({
       username,
-      password: hashPass
+      password: hashPass,
+      email: email
     });
 
     newUser
       .save()
       .then(() => {
-        res.redirect("/users");
+        res.render("auth", {
+          successMessage:
+            "Account created! Please login with your credentials.",
+          view: "login"
+        });
       })
       .catch(err => {
         res.render("auth", { message: "Something went wrong", view: "signup" });

@@ -21,11 +21,12 @@ router.get("/", (req, res, next) => {
   Util.getProfileData(user)
     .then(data => {
       let myTurn = data.open.filter(
-        game => game.currentPlayer.toString() == user._id.toString()
+        game => game.currentPlayer._id.toString() == user._id.toString()
       );
       let othersTurn = data.open.filter(
-        game => game.currentPlayer.toString() != user._id.toString()
+        game => game.currentPlayer._id.toString() != user._id.toString()
       );
+      console.log(myTurn, "!!!!!!", othersTurn);
       Util.getStats().then(promises => {
         Promise.all(promises)
           .then(usersData => {
@@ -54,7 +55,9 @@ router.post("/send-email/:id", (req, res, next) => {
   let user = req.user;
   let subject = "It's your turn!";
   let href = "http://127.0.0.1:3000/auth";
-  let message = `Hi ${cp.username}, ${user.username} has started a game of Boggle with you. It's your turn to play! <a href="${href}">Click here</a> to log in and take your turn.`;
+  let message = `Hi ${cp.username}, ${
+    user.username
+  } has started a game of Boggle with you. It's your turn to play! <a href="${href}">Click here</a> to log in and take your turn.`;
   let transporter = nodemailer.createTransport({
     service: "Gmail",
     auth: {

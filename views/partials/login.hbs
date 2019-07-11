@@ -1,7 +1,10 @@
-
 <h2>Login</h2>
 
 <form action="/auth/login" method="POST" id="form-container">
+  {{#if successMessage }}
+  <div class="success-message">{{ successMessage }}</div>
+  <br><br>
+  {{/if}}
   <label for="username">Username</label>
   <input id="username" type="text" name="username" placeholder="JonSnow">
   <br><br>
@@ -9,7 +12,7 @@
   <input id="password" type="password" name="password" placeholder="Your password">
   <br>
   {{#if message }}
-    <div class="error-message">{{ message }}</div>
+  <div class="error-message">{{ message }}</div>
   {{/if}}
   <br><br>
   <button>Login</button>

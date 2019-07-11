@@ -11,6 +11,7 @@
           <button type="button" id="enter-button">&#x1F50D;</button>
         </div>
         <button type="button" id="find-all">End and view solutions<span id="waiting">⌛</span></button>
+        <button type="button" id="back-to-profile">Back to profile</button>
       </div>
       <div id="error"></div>
     </div>
@@ -37,7 +38,7 @@
 
   let game = new Game(board, players, id);
   game.setup();
-  game.players[0].setCurrentPlayer();
+  game.loadCurrentPlayer();
 
   function setup() {
     let canvas = createCanvas(WIDTH, HEIGHT);
@@ -57,6 +58,8 @@
   findEndButton.style.display = "inline-block";
   findEndButton.onclick = (() => game.findAllWords()).bind(game)
   document.getElementById("enter-button").onclick = game.checkForWord.bind(game)
+  let backToProfile = document.getElementById("back-to-profile");
+  backToProfile.onclick = () => window.location.replace("../users");
 
 </script>
 

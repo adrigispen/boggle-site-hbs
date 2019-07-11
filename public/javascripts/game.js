@@ -35,9 +35,11 @@ class Game {
       document.getElementById("word-entry").disabled = true;
       document.getElementById("enter-button").disabled = true;
       let button = document.getElementById("find-all");
-      button.onclick = () => location.reload();
+      button.onclick = () => window.location.replace("../start-game");
       button.style.backgroundColor = winner.color;
+      button.style.width = "150px";
       button.innerHTML = "Play Again";
+      document.getElementById("back-to-profile").style.display = "inline-block";
       this.board.drawBoard();
       var overlayColor = color("white");
       overlayColor.setAlpha(220);
@@ -132,6 +134,21 @@ class Game {
       });
   }
 
+  setPlayerById(playerId, userId) {
+    axios
+      .post("http://127.0.0.1:3000/set-player/" + this.id, {
+        playerId,
+        userId
+      })
+      .then(response => {
+        console.log("set current player");
+        window.location.replace("../users");
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   endGameDB() {
     let winner = this.getWinner();
     axios
@@ -142,6 +159,37 @@ class Game {
       .catch(err => {
         console.log(err);
       });
+  }
+
+  endTurn() {
+    this.saveToDB();
+    let otherPlayer = this.players.find(player => !player.playingNow);
+    if (otherPlayer.turnOver) {
+      this.endGameDB();
+      this.endGame();
+      setTimeout(null, 5000);
+    } else {
+      this.getCurrentPlayer().turnOver = true;
+      this.getCurrentPlayer().playingNow = false;
+      this.setPlayerById(otherPlayer.id, otherPlayer.userId);
+    }
+  }
+
+  loadCurrentPlayer() {
+    let player = this.getCurrentPlayer();
+    document.getElementById(player.name + "-name").style.color = player.color;
+    document.getElementById(player.name + "-timer").style.color = player.color;
+    document.getElementById(player.name + "-player-list").style.display =
+      "inline-block";
+    if (!this.speed)
+      document.getElementById(player.name + "-turn-done").disabled = false;
+    this.players.forEach(p => {
+      if (p.name != player.name) {
+        document.getElementById(p.name + "-wrapper").style.overflowY = "hidden";
+        document.getElementById(p.name + "-player-list").style.display = "none";
+      }
+    });
+    player.timer.startTimer();
   }
 
   changePlayer() {

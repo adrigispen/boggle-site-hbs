@@ -1,25 +1,32 @@
 {{!-- Player's homepage, where he goes after logging in --}}
 <div class="col-container">
-  <div class="profile-header">
+  <div class="profile-header profile-row">
     <h1>{{ user.username }}</h1>
     <div class="win-count-container">
       <h1>{{ data.wonCount }}/{{ data.totalClosed }}</h1>
     </div>
   </div>
+  <a href="/auth/logout">Log out</a>
 
-  <p>Open games:</p>
+  <div class="open-games-row">
+    <h2>Open games:</h2>
+    <a href="/start-game">Start New Game
+    </a>
+  </div>
   <div class="card-container">
     {{#unless data.open }}
-    <h3>No open games!</h3>
+    <p>No open games! Start a new game to make a move.</p>
     {{/unless }}
-    {{#each data.open }}
+    {{#each myTurn }}
     {{>openGamePartial }}
     {{/each }}
+    {{#each othersTurn }}
+    {{>waitingGamePartial }}
+    {{/each }}
   </div>
-  <a href="/start-game">Start New Game</a>
   <h2>Leaderboard</h2>
   {{#if usersData }}
-  <div class="card-container">
+  <div class="profile-row-container">
     {{#each usersData }}
     {{>userPartial }}
     {{/each }}

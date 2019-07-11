@@ -60,7 +60,7 @@ router.post("/signup", (req, res, next) => {
     newUser
       .save()
       .then(() => {
-        res.redirect("/");
+        res.redirect("/users");
       })
       .catch(err => {
         res.render("auth", { message: "Something went wrong", view: "signup" });
@@ -70,7 +70,7 @@ router.post("/signup", (req, res, next) => {
 
 router.get("/logout", (req, res) => {
   req.logout();
-  res.redirect("/");
+  res.redirect("/auth");
 });
 
 router.get("/facebook", passport.authenticate("facebook"));

@@ -1,10 +1,12 @@
 <div class="card">
-  <a href="/game/{{_id}}">
-    <h4>View Game</h4>
-  </a>
-  <h3>{{ players.[0].displayName }}</h3>
-  <p>{{players.[0].points}} points, {{players.[0].seconds}} seconds</p>
+  <div class="card-row">
+    <h3>{{ players.[0].displayName }}</h3>
+    <p>{{players.[0].points}} points, {{players.[0].seconds}} seconds</p>
+  </div>
+  <div class="card-row">
+    <h3>{{ players.[1].displayName }}</h3>
+    <p>{{players.[1].points}} points, {{players.[1].seconds}} seconds</p>
+  </div>
   <br>
-  <h3>{{ players.[1].displayName }}</h3>
-  <p>{{players.[1].points}} points, {{players.[1].seconds}} seconds</p>
+  <a href="/game/{{_id}}">Play your turn!</a>
 </div>

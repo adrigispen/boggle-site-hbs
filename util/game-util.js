@@ -28,16 +28,17 @@ function newGame(boardSize, users, generous, shortTurns) {
   return newBoard(boardSize, generous, shortTurns)
     .then(boardFull => {
       let board = boardFull._id;
-      let players = users.map(u => ({
+      let players = users.map((u, index) => ({
         user: u._id,
         displayName: u.username,
         points: 0,
         words: [],
         color: getRandomColor(),
         seconds: 0,
-        currentPlayer: false
+        currentPlayer: index == 0 ? true : false
       }));
-      return OpenGame.create({ players, board })
+      let currentPlayer = users[0]._id;
+      return OpenGame.create({ players, board, currentPlayer })
         .then(game => {
           console.log(game);
           return game;
@@ -55,8 +56,8 @@ function getProfileData(user) {
   return User.findById(user._id)
     .then(user => {
       return OpenGame.find({ "players.displayName": user.username })
+        .populate({ path: "currentPlayer" })
         .then(games => {
-          console.log(games);
           let wonCount = games.filter(
             game =>
               game.winner != null &&

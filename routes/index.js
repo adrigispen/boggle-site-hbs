@@ -12,16 +12,21 @@ hbs.registerHelper("parse", data => JSON.parse(data));
 /* GET home page */
 router.get("/start-game", (req, res, next) => {
   let user = req.user;
-  console.log(user);
   User.find({})
     .then(users => {
-      console.log(users);
-      res.render("boggle/settings", { user, users });
+      let usersUnique = users.filter(u => user.username != u.username);
+      res.render("boggle/settings", { user, usersUnique });
     })
     .catch(err => {
       console.log(err);
       next(err);
     });
+});
+
+router.post("/start-game", (req, res) => {
+  let tempname = req.body.tempname;
+  console.log(tempname);
+  res.render("boggle/settings", { tempname });
 });
 
 router.post("/game", (req, res) => {
@@ -94,7 +99,8 @@ router.post("/save-game/:id", (req, res, next) => {
         "players.$.words": req.body.newWords,
         "players.$.seconds": req.body.seconds,
         "players.$.points": req.body.points,
-        "players.$.currentPlayer": false
+        "players.$.currentPlayer": false,
+        "players.$.turnOver": true
       }
     }
   )
@@ -113,7 +119,8 @@ router.post("/set-player/:id", (req, res) => {
     {
       $set: {
         "players.$.currentPlayer": true
-      }
+      },
+      currentPlayer: req.body.userId
     }
   )
     .then(game => {

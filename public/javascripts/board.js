@@ -1,19 +1,4 @@
 class Board {
-  // constructor(dimension) {
-  //   this.dimension = dimension;
-  //   this.dictionary = new Typo("en_US", false, false, {
-  //     dictionaryPath: "/javascripts/typo/dictionaries"
-  //   });
-  //   this.letterMatrix = [];
-  //   this.words = [];
-  //   for (var i = 0; i < this.dimension; i++) {
-  //     this.letterMatrix[i] = [];
-  //     for (var j = 0; j < this.dimension; j++) {
-  //       this.letterMatrix[i].push(getRandomLetter().toUpperCase());
-  //     }
-  //   }
-  // }
-
   constructor(board) {
     this.dimension = board.letterMatrix.length;
     this.dictionary = new Typo("en_US", false, false, {

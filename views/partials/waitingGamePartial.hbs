@@ -1,0 +1,27 @@
+<div class="card">
+  <div class="card-row">
+    <h3>{{ players.[0].displayName }}</h3>
+    <p>{{players.[0].points}} points, {{players.[0].seconds}} seconds</p>
+  </div>
+  <div class="card-row">
+    <h3>{{ players.[1].displayName }}</h3>
+    <p>{{ players.[1].points}} points, {{players.[1].seconds}} seconds</p>
+  </div>
+  <br>
+  <h4>Waiting for opponent...</h4><button type="button" id="remind-{{_id}}">Remind {{ currentPlayer.username }} &#x2709;
+  </button>
+</div>
+
+<script>
+  var cp = {{{ json currentPlayer }}}
+  document.getElementById("remind-{{_id}}").onclick = () => {
+    axios
+      .post("http://127.0.0.1:3000/users/send-email/" + {{{ json _id }}}, { cp })
+      .then(response => {
+        console.log("trying to send an email");
+      })
+    .catch(err => {
+      console.log(err);
+    });
+  }
+</script>

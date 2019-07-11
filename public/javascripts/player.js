@@ -1,5 +1,4 @@
 class Player {
-
   constructor(player) {
     this.name = player.displayName;
     this.timer = new Timer(player.seconds);
@@ -9,27 +8,7 @@ class Player {
     this.playingNow = player.currentPlayer;
     this.id = player._id;
     this.userId = player.user;
-    this.turnOver = false;
-  }
-
-  setCurrentPlayer() {
-    this.playingNow = true;
-    game.setPlayerDB();
-    document.getElementById(this.name + "-name").style.color = this.color;
-    document.getElementById(this.name + "-timer").style.color = this.color;
-    document.getElementById(this.name + "-player-list").style.display =
-      "inline-block";
-    if (!game.speed)
-      document.getElementById(this.name + "-turn-done").disabled = false;
-    game.players.forEach(player => {
-      if (player.name != this.name) {
-        document.getElementById(player.name + "-wrapper").style.overflowY =
-          "hidden";
-        document.getElementById(player.name + "-player-list").style.display =
-          "none";
-      }
-    });
-    this.timer.startTimer();
+    this.turnOver = player.turnOver;
   }
 
   addToBoard() {
@@ -60,7 +39,7 @@ class Player {
     let doneButton = document.createElement("button");
     doneButton.id = this.name + "-turn-done";
     doneButton.innerHTML = "End turn";
-    doneButton.onclick = () => game.changePlayer();
+    doneButton.onclick = () => game.endTurn();
     doneButton.disabled = true;
     let hr = document.createElement("hr");
 

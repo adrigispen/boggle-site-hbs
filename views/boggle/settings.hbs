@@ -9,15 +9,15 @@
           <label>Player Name</label>
           <div class="new-player-input">
             <input class="player" type="text" name="currentUser" placeholder="Player 1" {{#if user}}
-              value="{{ user.username }}" {{/if}}>
+              value="{{ user.username }}" {{else }} value="{{ tempname }}" {{/if}}>
           </div>
         </div>
         <div class="player-row">
           <label>Player Name</label>
           <div class="new-player-input">
-            {{#if users }}
+            {{#if usersUnique }}
             <select name="user2">
-              {{#each users}}
+              {{#each usersUnique}}
               <option value="{{ _id }}">{{ username }}</option>
               {{/each }}
             </select>
@@ -27,7 +27,6 @@
             {{/if }}
           </div>
         </div>
-        <button type="button" id="add-player" onclick="addPlayerInput()">Add Another...</button>
       </div>
     </div>
     <div class="row">

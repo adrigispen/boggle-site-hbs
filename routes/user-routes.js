@@ -54,7 +54,7 @@ router.post("/send-email/:id", (req, res, next) => {
   let { cp } = req.body;
   let user = req.user;
   let subject = "It's your turn!";
-  let href = "http://127.0.0.1:3000/auth";
+  let href = `${process.env.HOST_NAME}/auth`;
   let message = `Hi ${cp.username}, ${
     user.username
   } has started a game of Boggle with you. It's your turn to play! <a href="${href}">Click here</a> to log in and take your turn.`;

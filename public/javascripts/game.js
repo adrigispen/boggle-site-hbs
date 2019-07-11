@@ -103,7 +103,7 @@ class Game {
     let playerId = this.getCurrentPlayer().id;
     let userId = this.getCurrentPlayer().userId;
     axios
-      .post("http://127.0.0.1:3000/save-game/" + this.id, {
+      .post(`${process.env.HOST_NAME}/save-game/` + this.id, {
         playerId,
         seconds,
         newWords,
@@ -122,7 +122,7 @@ class Game {
     let playerId = this.getCurrentPlayer().id;
     let userId = this.getCurrentPlayer().userId;
     axios
-      .post("http://127.0.0.1:3000/set-player/" + this.id, {
+      .post(`${process.env.HOST_NAME}/set-player/` + this.id, {
         playerId,
         userId
       })
@@ -136,7 +136,7 @@ class Game {
 
   setPlayerById(playerId, userId) {
     axios
-      .post("http://127.0.0.1:3000/set-player/" + this.id, {
+      .post(`${process.env.HOST_NAME}/set-player/${this.id}`, {
         playerId,
         userId
       })
@@ -152,7 +152,7 @@ class Game {
   endGameDB() {
     let winner = this.getWinner();
     axios
-      .post("http://127.0.0.1:3000/end-game/" + this.id, { winner })
+      .post(`${process.env.HOST_NAME}/end-game/` + this.id, { winner })
       .then(response => {
         console.log("saved winner ended the game");
       })

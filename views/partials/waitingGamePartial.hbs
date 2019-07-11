@@ -8,17 +8,22 @@
     <p>{{ players.[1].points}} points, {{players.[1].seconds}} seconds</p>
   </div>
   <br>
-  <h4>Waiting for opponent...</h4><button type="button" id="remind-{{_id}}">Remind {{ currentPlayer.username }} &#x2709;
-  </button>
+  <h4>Waiting for opponent...</h4>
+  <div class="card-row">
+    <button type="button" id="remind-{{_id}}">Remind {{ currentPlayer.username }} ✉️</button>
+    <span class="mail-success" id="email-sent-{{_id}}"> ✅ Mail Sent!</span>
+  </div>
 </div>
 
 <script>
   var cp = {{{ json currentPlayer }}}
+  console.log(cp);
   document.getElementById("remind-{{_id}}").onclick = () => {
     axios
       .post(window.location.protocol + '//' + window.location.host + "/users/send-email/" + {{{ json _id }}}, { cp })
       .then(response => {
-        console.log("trying to send an email");
+        document.getElementById("email-sent-{{_id}}").style.display = "inline-block";
+        document.getElementById("remind-{{_id}}").disabled = true;
       })
     .catch(err => {
       console.log(err);

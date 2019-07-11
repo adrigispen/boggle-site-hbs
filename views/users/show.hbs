@@ -3,7 +3,7 @@
   <div class="profile-header profile-row">
     <h1>{{ user.username }}</h1>
     <div class="win-count-container">
-      <h1>{{ data.wonCount }}/{{ data.totalClosed }}</h1>
+      <h1>{{ data.wonCount }}/{{ data.totalClosed.length }}</h1>
     </div>
   </div>
   <a href="/auth/logout">Log out</a>
@@ -32,4 +32,8 @@
     {{/each }}
   </div>
   {{/if }}
+  <h2>History</h2>
+  {{#each data.totalClosed }}
+  {{>historicalGamePartial }}
+  {{/each }}
 </div>

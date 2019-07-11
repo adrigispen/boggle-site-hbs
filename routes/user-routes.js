@@ -20,13 +20,16 @@ router.get("/", (req, res, next) => {
   let user = req.user;
   Util.getProfileData(user)
     .then(data => {
+      console.log(
+        "here let's look at the ones that are closed ",
+        data.totalClosed
+      );
       let myTurn = data.open.filter(
         game => game.currentPlayer._id.toString() == user._id.toString()
       );
       let othersTurn = data.open.filter(
         game => game.currentPlayer._id.toString() != user._id.toString()
       );
-      console.log(myTurn, "!!!!!!", othersTurn);
       Util.getStats().then(promises => {
         Promise.all(promises)
           .then(usersData => {

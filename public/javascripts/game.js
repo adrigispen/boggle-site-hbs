@@ -181,19 +181,27 @@ class Game {
 
   loadCurrentPlayer() {
     let player = this.getCurrentPlayer();
-    document.getElementById(player.name + "-name").style.color = player.color;
-    document.getElementById(player.name + "-timer").style.color = player.color;
-    document.getElementById(player.name + "-player-list").style.display =
-      "inline-block";
-    if (!this.speed)
-      document.getElementById(player.name + "-turn-done").disabled = false;
-    this.players.forEach(p => {
-      if (p.name != player.name) {
-        document.getElementById(p.name + "-wrapper").style.overflowY = "hidden";
-        document.getElementById(p.name + "-player-list").style.display = "none";
-      }
-    });
-    player.timer.startTimer();
+    if (player) {
+      document.getElementById(player.name + "-name").style.color = player.color;
+      document.getElementById(player.name + "-timer").style.color =
+        player.color;
+      document.getElementById(player.name + "-player-list").style.display =
+        "inline-block";
+      if (!this.speed)
+        document.getElementById(player.name + "-turn-done").disabled = false;
+      this.players.forEach(p => {
+        if (p.name != player.name) {
+          document.getElementById(p.name + "-wrapper").style.overflowY =
+            "hidden";
+          document.getElementById(p.name + "-player-list").style.display =
+            "none";
+        }
+      });
+      player.timer.startTimer();
+    } else {
+      setTimeout(() => this.board.findAllWords(), 100);
+      this.isOver = true;
+    }
   }
 
   changePlayer() {

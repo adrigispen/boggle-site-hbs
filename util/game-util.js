@@ -57,6 +57,7 @@ function getProfileData(user) {
     .then(user => {
       return OpenGame.find({ "players.displayName": user.username })
         .populate({ path: "currentPlayer" })
+        .populate({ path: "winner" })
         .then(games => {
           let wonCount = games.filter(
             game =>
@@ -64,7 +65,17 @@ function getProfileData(user) {
               game.winner.toString() == user._id.toString()
           ).length;
           let open = games.filter(game => game.winner == null);
-          let totalClosed = games.filter(game => game.winner != null).length;
+          let totalClosed = games.filter(game => game.winner != null);
+          totalClosed.map(game => {
+            game.players.map(
+              player =>
+                (player.finalScore =
+                  player.seconds == 0
+                    ? 0
+                    : ((player.points / player.seconds) * 100).toFixed(2))
+            );
+            console.log(game.players);
+          });
           return { wonCount, totalClosed, open };
         })
         .catch(err => {
@@ -87,8 +98,9 @@ function getStats() {
                 game.winner != null &&
                 game.winner.toString() == user._id.toString()
             ).length;
-            let totalClosed = games.filter(game => game.winner != null).length;
-            return { user, wonCount, totalClosed };
+            let totalClosedCount = games.filter(game => game.winner != null)
+              .length;
+            return { user, wonCount, totalClosedCount };
           })
           .catch(err => {
             console.log("error getting games for user profile: ", err);

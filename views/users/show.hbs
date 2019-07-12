@@ -23,7 +23,7 @@
 
   <script>
     var wr = {{{ json data.totalClosed.length }}} ?({{{ json data.wonCount }}} / {{{ json data.totalClosed.length }}}) * 100 : 0;
-    document.getElementById("wr-{{user._id}}").innerHTML = wr + "% ";
+    document.getElementById("wr-{{user._id}}").innerHTML = wr.toFixed(2) + "% ";
     var user = {{{ json user }}};
     var tc = {{{ json data.totalClosed }}};
     var scores = tc.length == 0 ? 0 : tc.map(game => game.players.find(player => player.user == user._id).finalScore);

@@ -234,7 +234,8 @@ select {
 
 .tab {
   width: 100px;
-  height: 30px; }
+  height: 30px;
+  background-color: white; }
 
 .tab:first-child {
   border-radius: 5px 0 0 5px; }
@@ -346,8 +347,8 @@ select {
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  width: 80vw;
-  padding: 20px; }
+  width: 1000px;
+  padding: 0 20px 20px 20px; }
   .col-container h2 {
     font-size: 1.7em;
     margin: 30px 0 20px 0; }

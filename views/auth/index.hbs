@@ -1,22 +1,21 @@
 <div class="modal" onload="setView()">
   <h1>Welcome!</h1>
   <h4>To start playing, please login, signup, or continue as a guest.</h4>
+  <br>
   <div class="buttons">
     <button class="tab selected-tab" id="login-btn">Login</button><button class="tab" id="signup-btn">Sign
       up</button><button class="tab" id="guest-btn">Guest</button>
   </div>
   <div id="login-div">
     {{> login }}
-    <a href="/auth/facebook">Login via facebook</a>
   </div>
   <div id="signup-div">
     {{> signup }}
-    <a href="/auth/facebook">Login via facebook</a>
   </div>
   <div id="guest-div">
     {{> guest }}
   </div>
-  
+
 </div>
 
 <script>
@@ -30,23 +29,23 @@
 
   function setView() {
     if ({{ view }} == "signup") {
-      sb.classList.add("selected-tab");
-      lb.classList.remove("selected-tab");
-      gb.classList.remove("selected-tab");
-      sd.style.display = "inline-block";
-      sd.style.visibility = "visible";
-      ld.style.display = "none";
-      gd.style.display = "none";
-    }
-    if ({{ view }} == "login") {
-      lb.classList.add("selected-tab");
-      sb.classList.remove("selected-tab");
-      gb.classList.remove("selected-tab");
-      ld.style.display = "inline-block";
-      ld.style.visibility = "visible";
-      sd.style.display = "none";
-      gd.style.display = "none";
-    }
+    sb.classList.add("selected-tab");
+    lb.classList.remove("selected-tab");
+    gb.classList.remove("selected-tab");
+    sd.style.display = "inline-block";
+    sd.style.visibility = "visible";
+    ld.style.display = "none";
+    gd.style.display = "none";
+  }
+  if ({{ view }} == "login") {
+    lb.classList.add("selected-tab");
+    sb.classList.remove("selected-tab");
+    gb.classList.remove("selected-tab");
+    ld.style.display = "inline-block";
+    ld.style.visibility = "visible";
+    sd.style.display = "none";
+    gd.style.display = "none";
+  }
   }
 
   lb.onclick = () => {

@@ -1,14 +1,14 @@
-<div class="profile-row">
-  <h6>Winner: <span>{{ winner.username }}</span></h6>
-  <h6><a href="/game/{{_id}}">View Game</a></h6>
-</div>
-<div class="profile-row">
-  <h6>{{ players.[0].displayName }}:</h6>
-  <h6>{{ players.[0].points}} points, {{ players.[0].seconds}} seconds</h6>
-  <h6>Final Score: {{ players.[0].finalScore }}</h6>
-</div>
-<div class="profile-row">
-  <h6>{{ players.[1].displayName }}:</h6>
-  <h6>{{ players.[1].points }} points, {{ players.[1].seconds }} seconds</h6>
-  <h6>Final Score: {{ players.[1].finalScore }}</h6>
+<div class="card history">
+  <div class="card-row">
+    <h5 class="history">Winner: <span>{{ winner.username }}</span></h5>
+    <a class="history" href="/game/{{_id}}">View Game</a>
+  </div>
+  <div class="card-row">
+    <h3>{{ players.[0].displayName }}</h3>
+    <p>{{ players.[0].points}} points, {{ players.[0].seconds}} seconds, {{ players.[0].finalScore }} pts</p>
+  </div>
+  <div class="card-row">
+    <h3>{{ players.[1].displayName }}</h3>
+    <p>{{ players.[1].points }} points, {{ players.[1].seconds }} seconds, {{ players.[1].finalScore }} pts</p>
+  </div>
 </div>

@@ -1,12 +1,36 @@
 {{!-- Player's homepage, where he goes after logging in --}}
 <div class="col-container">
-  <div class="profile-header profile-row">
+  <div class="profile-header">
     <h1>{{ user.username }}</h1>
     <div class="win-count-container">
-      <h1>{{ data.wonCount }}/{{ data.totalClosed.length }}</h1>
+      <div><a href="/leaderboard">Leaderboard</a></div>
+      <div><a href="/auth/logout">Log out</a></div>
     </div>
   </div>
-  <a href="/auth/logout">Log out</a>
+  <div class="profile-row">
+    <div class="first-col">
+      <h6>Player: <span id="name-{{user._id}}">{{ user.username }}</span></h6>
+    </div>
+    <div class="middle-col">
+      <h6>Win ratio:<span id="wr-{{user._id}}"></span> ({{ data.wonCount }}/{{ data.totalClosed.length }})</h6>
+    </div>
+    <div class="last-col">
+      <h6>High score:<span id="hs-{{user._id}}"></span></h6>
+    </div>
+    <hr>
+  </div>
+  <br><br>
+
+  <script>
+    var wr = {{{ json data.totalClosed.length }}} ?({{{ json data.wonCount }}} / {{{ json data.totalClosed.length }}}) * 100 : 0;
+    document.getElementById("wr-{{user._id}}").innerHTML = wr + "% ";
+    var user = {{{ json user }}};
+    var tc = {{{ json data.totalClosed }}};
+    var scores = tc.length == 0 ? 0 : tc.map(game => game.players.find(player => player.user == user._id).finalScore);
+    var hs = scores == 0 ? 0 : Math.max(...scores);
+    document.getElementById("hs-{{user._id}}").innerHTML = hs + " pts";
+  </script>
+
 
   <div class="open-games-row">
     <h2>Open games:</h2>
@@ -25,7 +49,9 @@
     {{/each }}
   </div>
   <h2>History</h2>
-  {{#each data.totalClosed }}
-  {{>historicalGamePartial }}
-  {{/each }}
+  <div class="card-container">
+    {{#each data.totalClosed }}
+    {{>historicalGamePartial }}
+    {{/each }}
+  </div>
 </div>

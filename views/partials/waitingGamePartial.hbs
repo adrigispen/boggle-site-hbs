@@ -1,5 +1,8 @@
 <div class="card">
   <div class="card-row">
+    <h5>Waiting for {{ currentPlayer.username }}...</h5>
+  </div>
+  <div class="card-row">
     <h3>{{ players.[0].displayName }}</h3>
     <p>{{players.[0].points}} points, {{players.[0].seconds}} seconds</p>
   </div>
@@ -7,22 +10,22 @@
     <h3>{{ players.[1].displayName }}</h3>
     <p>{{ players.[1].points}} points, {{players.[1].seconds}} seconds</p>
   </div>
-  <br>
-  <h4>Waiting for opponent...</h4>
   <div class="card-row">
-    <button type="button" id="remind-{{_id}}">Remind {{ currentPlayer.username }} ✉️</button>
+    <button class="reminder" type="button" id="remind-{{_id}}"> ✉️ Remind {{ currentPlayer.username }} </button>
     <span class="mail-success" id="email-sent-{{_id}}"> ✅ Mail Sent!</span>
   </div>
 </div>
 
 <script>
   var cp = {{{ json currentPlayer }}}
-  console.log(cp);
+
   document.getElementById("remind-{{_id}}").onclick = () => {
     axios
       .post(window.location.protocol + '//' + window.location.host + "/users/send-email/" + {{{ json _id }}}, { cp })
       .then(response => {
         document.getElementById("email-sent-{{_id}}").style.display = "inline-block";
+        document.getElementById("remind-{{_id}}").style.color = "grey";
+        document.getElementById("remind-{{_id}}").style.borderColor = "grey";
         document.getElementById("remind-{{_id}}").disabled = true;
       })
     .catch(err => {

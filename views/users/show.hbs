@@ -24,14 +24,6 @@
     {{>waitingGamePartial }}
     {{/each }}
   </div>
-  <h2>Leaderboard</h2>
-  {{#if usersData }}
-  <div class="profile-row-container">
-    {{#each usersData }}
-    {{>userPartial }}
-    {{/each }}
-  </div>
-  {{/if }}
   <h2>History</h2>
   {{#each data.totalClosed }}
   {{>historicalGamePartial }}

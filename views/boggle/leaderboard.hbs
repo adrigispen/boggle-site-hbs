@@ -1,0 +1,25 @@
+<div class="col-container">
+  <h1>Leaderboard <button id="button">Log in and play!</button></h1>
+  {{#if usersData }}
+  <div class="profile-row-container">
+    {{#each usersData }}
+    {{>userPartial }}
+    {{/each }}
+  </div>
+  {{/if }}
+</div>
+
+<script>
+  var user = {{{ json user }}};
+  if (user) {
+    document.getElementById("name-{{user._id}}").style.color = "#7c1fed";
+    document.getElementById("hs-{{user._id}}").style.color = "#7c1fed";
+    document.getElementById("wr-{{user._id}}").style.color = "#7c1fed";
+    document.getElementById("button").style.backgroundColor = "#7c1fed";
+    document.getElementById("button").innerHTML = "Back to profile";
+    document.getElementById("button").onclick = () => window.location.replace("/users");
+  } else {
+    document.getElementById("button").onclick = () => window.location.replace("/auth");
+    document.getElementById("button").innerHTML = "Log in and play!";
+  }
+</script>

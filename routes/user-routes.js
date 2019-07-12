@@ -18,39 +18,20 @@ router.get("/:id", (req, res, next) => {
 
 router.get("/", (req, res, next) => {
   let user = req.user;
-  Util.getProfileData(user)
-    .then(data => {
-      console.log(
-        "here let's look at the ones that are closed ",
-        data.totalClosed
-      );
-      let myTurn = data.open.filter(
-        game => game.currentPlayer._id.toString() == user._id.toString()
-      );
-      let othersTurn = data.open.filter(
-        game => game.currentPlayer._id.toString() != user._id.toString()
-      );
-      Util.getStats().then(promises => {
-        Promise.all(promises)
-          .then(usersData => {
-            usersData.sort((a, b) => b.wonCount - a.wonCount);
-            console.log(usersData);
-            res.render("users/show", {
-              user,
-              data,
-              myTurn,
-              othersTurn,
-              usersData
-            });
-          })
-          .catch(err => {
-            console.log("promises won't resolve: ", err);
-          });
-      });
-    })
-    .catch(err => {
-      console.log("couldn't get data from util method ", err);
+  Util.getProfileData(user).then(data => {
+    let myTurn = data.open.filter(
+      game => game.currentPlayer._id.toString() == user._id.toString()
+    );
+    let othersTurn = data.open.filter(
+      game => game.currentPlayer._id.toString() != user._id.toString()
+    );
+    res.render("users/show", {
+      user,
+      data,
+      myTurn,
+      othersTurn
     });
+  });
 });
 
 router.post("/send-email/:id", (req, res, next) => {

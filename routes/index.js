@@ -155,4 +155,33 @@ router.post("/end-game/:id", (req, res, next) => {
   });
 });
 
+router.get("/leaderboard", (req, res) => {
+  let user = req.user;
+  Util.getStats()
+    .then(promises => {
+      Promise.all(promises)
+        .then(usersData => {
+          usersData.map(userData => {
+            userData.totalClosed.map(game => {
+              game.players.map(
+                player =>
+                  (player.finalScore =
+                    player.seconds == 0
+                      ? 0
+                      : ((player.points / player.seconds) * 100).toFixed(2))
+              );
+            });
+          });
+          usersData.sort((a, b) => b.wonCount - a.wonCount);
+          res.render("boggle/leaderboard", { usersData, user });
+        })
+        .catch(err => {
+          console.log("promises won't resolve: ", err);
+        });
+    })
+    .catch(err => {
+      console.log("can't get stats from util method: ", err);
+    });
+});
+
 module.exports = router;

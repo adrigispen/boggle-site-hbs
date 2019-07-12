@@ -287,10 +287,10 @@ div span {
     background-color: darkblue;
     border-radius: 5px;
     color: white;
-    font-weight: 400;
+    font-weight: 600;
     font-size: 1.2em;
     width: 200px;
-    padding: 8px 0;
+    padding: 6px 0;
     text-align: center;
     vertical-align: center;
   }
@@ -349,12 +349,27 @@ div span {
   justify-content: space-between;
   align-items: flex-start;
   width: 80vw;
-  border: 1px solid purple;
   padding: 20px;
 
   h2 {
     font-size: 1.7em;
     margin: 30px 0 20px 0;
+  }
+
+  h1 {
+    width: 100%;
+
+    button {
+      width: 200px;
+      height: 40px;
+      font-size: 0.6em;
+      font-weight: 700;
+      border-radius: 5px;
+      background-color: darkblue;
+      color: white;
+      float: right;
+      border: none;
+    }
   }
 }
 
@@ -364,17 +379,17 @@ div span {
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  border: 1px solid blue;
 }
 
 .profile-row {
+  border-bottom: 1px solid grey;
+  padding: 15px 0;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
-  background-color: antiquewhite;
-  border: 1px solid darkblue;
+  text-align: left;
 
   h1 {
     text-transform: uppercase;
@@ -384,10 +399,9 @@ div span {
   }
 
   h2 {
-    text-transform: uppercase;
-    font-weight: 400;
+    font-weight: 700;
     font-size: 1.5em;
-    margin: 5px 10px;
+    margin: 15px;
     padding: 0;
   }
 
@@ -396,6 +410,22 @@ div span {
     font-weight: 400;
     margin: 5px 10px;
     padding: 0;
+    color: black;
+  }
+
+  span {
+    margin: 10px;
+    color: navy;
+  }
+
+  .first-col {
+    width: 33%;
+  }
+  .middle-col {
+    width: 33%;
+  }
+  .last-col {
+    width: 33%;
   }
 }
 

@@ -62,7 +62,7 @@ function getProfileData(user) {
           let wonCount = games.filter(
             game =>
               game.winner != null &&
-              game.winner.toString() == user._id.toString()
+              game.winner._id.toString() == user._id.toString()
           ).length;
           let open = games.filter(game => game.winner == null);
           let totalClosed = games.filter(game => game.winner != null);
@@ -74,6 +74,7 @@ function getProfileData(user) {
                     ? 0
                     : ((player.points / player.seconds) * 100).toFixed(2))
             );
+            game.players.sort((a, b) => b.finalScore - a.finalScore);
             console.log(game.players);
           });
           return { wonCount, totalClosed, open };
@@ -98,9 +99,8 @@ function getStats() {
                 game.winner != null &&
                 game.winner.toString() == user._id.toString()
             ).length;
-            let totalClosedCount = games.filter(game => game.winner != null)
-              .length;
-            return { user, wonCount, totalClosedCount };
+            let totalClosed = games.filter(game => game.winner != null);
+            return { user, wonCount, totalClosed };
           })
           .catch(err => {
             console.log("error getting games for user profile: ", err);

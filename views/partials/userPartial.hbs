@@ -1,4 +1,24 @@
 <div class="profile-row">
-  <h2>{{ user.username }}: {{ wonCount }}/{{ totalClosedCount }}</h2>
-  <h6>{{ user.email }}</h6>
+  <div class="first-col">
+    <h6>Player: <span id="name-{{user._id}}">{{ user.username }}</span></h6>
+  </div>
+  <div class="middle-col">
+    <h6>Win ratio:<span id="wr-{{user._id}}"></span> ({{ wonCount }}/{{ totalClosed.length }})</h6>
+  </div>
+  <div class="last-col">
+    <h6>High score:<span id="hs-{{user._id}}"></span></h6>
+  </div>
+  <hr>
 </div>
+
+<script>
+  var wr = {{{ json totalClosed.length }}} ?({{{ json wonCount }}} / {{{ json totalClosed.length }}}) * 100 : 0;
+  document.getElementById("wr-{{user._id}}").innerHTML = wr + "% ";
+  var user = {{{ json user }}};
+  var tc = {{{ json totalClosed }}};
+  var scores = tc.length == 0 ? 0 : tc.map(game => game.players.find(player => player.user == user._id).finalScore);
+  console.log(scores);
+  var hs = scores == 0 ? 0 : Math.max(...scores);
+  document.getElementById("hs-{{user._id}}").innerHTML = hs + " pts";
+  console.log(hs);
+</script>

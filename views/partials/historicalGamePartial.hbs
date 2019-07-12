@@ -1,14 +1,14 @@
 <div class="profile-row">
-  <h2>Winner: {{ winner.username }}</h2>
+  <h6>Winner: <span>{{ winner.username }}</span></h6>
   <h6><a href="/game/{{_id}}">View Game</a></h6>
 </div>
 <div class="profile-row">
   <h6>{{ players.[0].displayName }}:</h6>
   <h6>{{ players.[0].points}} points, {{ players.[0].seconds}} seconds</h6>
-  <h6>{{ players.[0].finalScore }}</h6>
+  <h6>Final Score: {{ players.[0].finalScore }}</h6>
 </div>
 <div class="profile-row">
   <h6>{{ players.[1].displayName }}:</h6>
   <h6>{{ players.[1].points }} points, {{ players.[1].seconds }} seconds</h6>
-  <h6>{{ players.[1].finalScore }}</h6>
+  <h6>Final Score: {{ players.[1].finalScore }}</h6>
 </div>

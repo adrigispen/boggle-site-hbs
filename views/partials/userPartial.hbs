@@ -19,6 +19,6 @@
   var scores = tc.length == 0 ? 0 : tc.map(game => game.players.find(player => player.user == user._id).finalScore);
   console.log(scores);
   var hs = scores == 0 ? 0 : Math.max(...scores);
-  document.getElementById("hs-{{user._id}}").innerHTML = hs + " total";
+  document.getElementById("hs-{{user._id}}").innerHTML = hs + " pts";
   console.log(hs);
 </script>

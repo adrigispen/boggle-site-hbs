@@ -63,9 +63,7 @@ hbs.registerHelper("ifUndefined", (value, options) => {
   }
 });
 
-// default value for title local
-app.locals.title =
-  "Amazing, Adventurous; Astonishingly, Aggressively Awesome App";
+app.locals.title = "Words with friends: Boggle edition";
 
 // Enable authentication using session + passport
 app.use(
